@@ -38,49 +38,6 @@ archives:
       - goos: windows
         format: zip
 
-dockers:
-  - dockerfile: Dockerfile
-    use: buildx
-    build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--platform=linux/amd64"
-    image_templates:
-      - "bunnyshell/cli:{{ .Tag }}-amd64"
-    extra_files:
-      - config.sample.yaml
-
-  - dockerfile: Dockerfile
-    use: buildx
-    build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--platform=linux/arm64/v8"
-    image_templates:
-      - "bunnyshell/cli:{{ .Tag }}-arm64v8"
-    extra_files:
-      - config.sample.yaml
-    goarch: arm64
-    goos: linux
-
-docker_manifests:
-  - name_template: "bunnyshell/cli:{{ .Tag }}"
-    image_templates:
-      - "bunnyshell/cli:{{ .Tag }}-amd64"
-      - "bunnyshell/cli:{{ .Tag }}-arm64v8"
-  - name_template: "bunnyshell/cli:latest"
-    image_templates:
-      - "bunnyshell/cli:{{ .Tag }}-amd64"
-      - "bunnyshell/cli:{{ .Tag }}-arm64v8"
-
 checksum:
   name_template: 'checksums.txt'
 
