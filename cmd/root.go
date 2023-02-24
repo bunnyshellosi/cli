@@ -76,6 +76,10 @@ func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
+
+	if config.GetSettings().IsStylish() {
+		rootCmd.Println("\n\tWe've moved to a new project. Update instructions on: https://github.com/bunnyshell/cli\n")
+	}
 }
 
 func init() {
